@@ -1,7 +1,10 @@
 import { useState } from "react";
+import "./Login.css";
+
 
 function Login() {
-  const [form, setForm] = useState({
+  const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState({
     userId: "",
     password: "",
     branch: "",
@@ -9,76 +12,96 @@ function Login() {
   });
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
-  const handleLogin = () => {
-    console.log("Login Data:", form);
-    alert("Login button clicked");
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://localhost:8080/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    });
+
+    const data = await response.json();
+
+    if (data.status === "SUCCESS") {
+      setMessage("Login successful");
+    } else {
+      setMessage("Invalid credentials");
+    }
+
+  } catch (error) {
+    console.error(error);
+    setMessage("Server error");
+  }
+};
 
   return (
-    <div style={styles.container}>
-      <h2>PolicyFlow Login</h2>
+    <div className="login-page">
+      <div className="login-card">
 
-      <input
-        name="userId"
-        placeholder="User ID"
-        onChange={handleChange}
-        style={styles.input}
-      />
+        {/* LEFT SIDE */}
+        <div className="login-form">
+          <h2>PolicyFlow</h2>
+          <p className="subtitle">Sign in to your account</p>
 
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        onChange={handleChange}
-        style={styles.input}
-      />
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="userId"
+              placeholder="User ID"
+              onChange={handleChange}
+              required
+            />
 
-      <input
-        name="branch"
-        placeholder="Branch Code"
-        onChange={handleChange}
-        style={styles.input}
-      />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              required
+            />
 
-      <input
-        name="roleCode"
-        placeholder="Role Code"
-        onChange={handleChange}
-        style={styles.input}
-      />
+            <input
+              type="text"
+              name="branch"
+              placeholder="Branch"
+              onChange={handleChange}
+              required
+            />
 
-      <button onClick={handleLogin} style={styles.button}>
-        Login
-      </button>
+            <input
+              type="text"
+              name="roleCode"
+              placeholder="Role Code"
+              onChange={handleChange}
+              required
+            />
+
+            <button type="submit">Login</button>
+          </form>
+          {message && <p className="login-message">{message}</p>}
+        </div>
+
+        {/* RIGHT SIDE */}
+        <div className="login-image">
+          <div className="overlay-text">
+            <h3>Welcome to PolicyFlow</h3>
+            <p>Secure policy management system</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    width: "350px",
-    margin: "120px auto",
-    padding: "20px",
-    border: "1px solid #ccc",
-    backgroundColor: "#f5f5f5",
-    textAlign: "center"
-  },
-  input: {
-    width: "100%",
-    padding: "8px",
-    marginBottom: "12px"
-  },
-  button: {
-    width: "100%",
-    padding: "8px",
-    backgroundColor: "#003366",
-    color: "#fff",
-    border: "none",
-    cursor: "pointer"
-  }
-};
 
 export default Login;

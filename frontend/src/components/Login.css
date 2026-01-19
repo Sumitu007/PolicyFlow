@@ -1,0 +1,100 @@
+body {
+  margin: 0;
+  background: linear-gradient(135deg, #dbeafe, #fef3c7);
+}
+html, body {
+  overflow-x: hidden;
+}
+
+
+.login-page {
+  height: 100vh;
+  background: linear-gradient(135deg, #dbeafe, #fef3c7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.login-card {
+  width: 90%;
+  max-width: 1100px;
+  height: 520px;
+  background: #fff;
+  border-radius: 24px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* LEFT */
+.login-form {
+  flex: 1;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* vertical centering */
+  align-items: center;       /* horizontal centering */
+}
+
+
+.login-form h2 {
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.login-form button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: #facc15;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-form button:hover {
+  background: #eab308;
+}
+
+.login-message {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: 500;
+  color: green;
+}
+
+
+
+/* RIGHT */
+.login-image {
+  flex: 1;
+  background: url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d")
+    center / cover no-repeat;
+  position: relative;
+}
+
+.overlay-text {
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  color: white;
+}
+
+.overlay-text h3 {
+  margin-bottom: 5px;
+}
